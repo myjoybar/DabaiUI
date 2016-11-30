@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#14FFFFFF"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/margin_small">
+
+        <TextView
+            android:id="@+id/tv_nickanme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="大白君"
+            android:textColor="@color/dabai_main_color_white"
+            android:textSize="@dimen/font_normaler" />
+
+        <TextView
+            android:id="@+id/tv_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_smallest"
+            android:background="@drawable/shape_round_white"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/spadding_huge"
+            android:paddingRight="@dimen/spadding_huge"
+            android:text="LV6"
+            android:textColor="@color/dabai_main_color_red"
+            android:textSize="@dimen/font_small" />
+
+    </LinearLayout>
+
+    <include layout="@layout/menu_navigation">
+
+    </include>
+</LinearLayout>

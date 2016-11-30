@@ -2,4 +2,43 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- font sizes -->
+    <dimen name="font_huger">32sp</dimen>
+    <dimen name="font_huge">26sp</dimen>
+    <dimen name="font_larger">22sp</dimen>
+    <dimen name="font_large">18sp</dimen>
+    <dimen name="font_normaler">16sp</dimen>
+    <dimen name="font_normal">14sp</dimen>
+    <dimen name="font_small">12sp</dimen>
+    <dimen name="font_small_item">12sp</dimen>
+    <dimen name="font_smaller_item">10sp</dimen>
+    <dimen name="font_largerr">20sp</dimen>
+    <dimen name="font_normal_b">15sp</dimen>
+    <dimen name="font_smallest">7sp</dimen>
+
+    <!-- padding -->
+    <dimen name="spadding_huger">15dp</dimen>
+    <dimen name="spadding_bigger">10dp</dimen>
+    <dimen name="spadding_big">8dp</dimen>
+    <dimen name="spadding_huge">6dp</dimen>
+    <dimen name="padding_large">5dp</dimen>
+    <dimen name="padding_normal">4dp</dimen>
+    <dimen name="padding_small">3dp</dimen>
+    <dimen name="padding_tiny">2dp</dimen>
+    <dimen name="padding_item_history">2dp</dimen>
+
+    <!-- margin -->
+    <dimen name="margin_huger">70dp</dimen>
+    <dimen name="margin_huge">50dp</dimen>
+    <dimen name="margin_large">40dp</dimen>
+    <dimen name="margin_normal">30dp</dimen>
+    <dimen name="margin_small">20dp</dimen>
+    <dimen name="margin_smaller">15dp</dimen>
+    <dimen name="margin_tiny">10dp</dimen>
+    <dimen name="margin_smallest">5dp</dimen>
+    <dimen name="margin_tinyer">2dp</dimen>
+    <dimen name="margin_tinyest">1dp</dimen>
+    <dimen name="margin_chat_msg">15dp</dimen>
+
+    <dimen name="height_item">40dp</dimen>
 </resources>

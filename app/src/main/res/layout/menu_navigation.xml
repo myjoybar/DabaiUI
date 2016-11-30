@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/selector_item_drawer_menu"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/lin_coupon"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height_item"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:gravity="left|center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="优惠券"
+            android:textColor="@color/dabai_main_color_white"
+            android:textSize="@dimen/font_normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/padding_small"
+            android:text="6"
+            android:textColor="@color/dabai_main_color_white"
+            android:textSize="@dimen/font_normal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_info"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height_item"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:gravity="left|center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="个人信息"
+            android:textColor="@color/dabai_main_color_white"
+            android:textSize="@dimen/font_normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/padding_small"
+            android:textColor="@color/dabai_main_color_white"
+            android:textSize="@dimen/font_normal" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/lin_invite"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height_item"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:gravity="left|center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="邀请好友"
+            android:textColor="@color/dabai_main_color_white"
+            android:textSize="@dimen/font_normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/padding_small"
+            android:textColor="@color/dabai_main_color_white"
+            android:textSize="@dimen/font_normal" />
+    </LinearLayout>
+
+</LinearLayout>
