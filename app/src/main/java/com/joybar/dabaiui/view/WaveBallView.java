@@ -9,6 +9,8 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -18,6 +20,7 @@ import com.joybar.dabaiui.R;
  * Created by joybar on 28/11/16.
  */
 public class WaveBallView extends View {
+
 
     private PorterDuffXfermode porterDuffXfermode;// Xfermode
     private Paint paint;// 画笔
@@ -39,7 +42,7 @@ public class WaveBallView extends View {
 
     private float orientationOffset = 1;// 方向角度偏移量
     private float rightOffset = 0;//控制点在X上的偏移量，开启线程，起到荡漾效果
-
+    private int SENSITIVITY = 90;
 
     Float[] aArray = null;
 
@@ -84,8 +87,7 @@ public class WaveBallView extends View {
     Float pClose2y = 0f;
 
     public WaveBallView(Context context) {
-        super(context);
-        // TODO Auto-generated constructor stub
+        this(context,null);
     }
 
     public WaveBallView(Context context, AttributeSet attrs) {
@@ -98,6 +100,84 @@ public class WaveBallView extends View {
     }
 
 
+
+    public void setSensorEvent(SensorEvent sensorEvent) {
+
+            float[] values = sensorEvent.values;
+            // 获取手机触发event的传感器的类型
+            int sensorType = sensorEvent.sensor.getType();
+            //定义气泡当前位置X Y坐标值
+            int x = 0;
+            int y = -0;
+            int cx = 90;
+            int cy = 90;
+
+
+            switch (sensorType) {
+                case Sensor.TYPE_ORIENTATION:
+                    int zAngle = (int) values[0];
+                    int yAngle = (int) values[1];
+                    int xAngle = (int) values[2];
+
+                    if (Math.abs(xAngle) <= SENSITIVITY) {
+                        int deltaX = (int) (cx * xAngle / SENSITIVITY);
+                        x += deltaX;
+                    } else if (xAngle > SENSITIVITY) {
+                        x = 0;
+                    } else {
+                        x = cx * 2;
+                    }
+                    if (Math.abs(yAngle) <= SENSITIVITY) {
+                        int deltaY = (int) (cy * yAngle / SENSITIVITY);
+                        y += deltaY;
+                    } else if (yAngle > SENSITIVITY) {
+                        y = cy * 2;
+                    } else {
+                        y = 0;
+                    }
+
+
+                    double angle = 0;
+                    if (y == 0) {
+                        if (x < 0) {
+                            angle = 90;
+                        } else if (x == 0) {
+                            angle = 0;
+                        } else {
+                            angle = -90;
+                        }
+                    } else if (y < 0) {
+                        if (x < 0) {
+                            float v = ((float) (float) x / (float) y);
+                            angle = Math.toDegrees(Math.atan(Math.abs(v)));
+                        } else if (x == 0) {
+                            //angle = 0;
+                        } else {
+                            float v = ((float) (float) x / (float) y);
+                            angle = -Math.toDegrees(Math.atan(Math.abs(v)));
+                        }
+                    } else {
+                        if (x < 0) {
+                            float v = ((float) (float) y / (float) x);
+                            angle = Math.toDegrees(Math.atan(Math.abs(v)));
+                            angle = angle + 90.0;
+
+                        } else if (x == 0) {
+                            //angle = -180;
+                        } else {
+                            float v = ((float) (float) y / (float) x);
+                            angle = -Math.toDegrees(Math.atan(Math.abs(v)));
+                            angle = angle - 90.0;
+                        }
+                    }
+                    this.setOrientationOffset((float)-angle);
+
+                    this.postInvalidate();
+                    break;
+            }
+
+
+        }
 
     public void setOrientationOffset(float orientationOffset) {
         this.orientationOffset = orientationOffset;

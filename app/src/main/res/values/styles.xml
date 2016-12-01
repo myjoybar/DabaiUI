@@ -1,11 +1,45 @@
 <resources>
-
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Base.AppTheme"></style>
+    <style name="Base.AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <!-- 半透明activity的style： -->
+    <style name="transcuteStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@android:color/transparent</item> <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item> <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">true</item> <!-- 半透明 -->
+        <item name="android:windowNoTitle">false</item> <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item> <!-- 背景透明 -->
+        <item name="android:backgroundDimAmount">0.6</item> <!-- 灰度 -->
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:padding">0dip</item>
+    </style>
+
+    <!--<style name="Theme.AppCompat.Translucent" parent="Theme.AppCompat.Light.DarkActionBar">-->
+    <style name="Theme.AppCompat.Translucent"  parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="android:windowFrame">@android:color/transparent</item> <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item> <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">true</item> <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item> <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item> <!-- 背景透明 -->
+        <item name="android:backgroundDimAmount">0.6</item> <!-- 灰度 -->
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:padding">0dip</item>
+
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <!--<style name="baseTranscuteStyle" parent="@android:style/Theme.Dialog">-->
+
+    <!--</style>-->
 </resources>

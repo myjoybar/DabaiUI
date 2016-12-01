@@ -20,7 +20,15 @@
 
     <color name="drawer_menu_press">#1AFFFFFF</color>
 
-
+    <!-- 用于文字辅助色 -->
+    <color name="dabai_main_color_gray">#A7A7A7</color>
+    <color name="dabai_main_color_light_gray_divide">#C2C2C2</color>
+    <color name="dabai_main_color_light_gray">#E7E7E7</color>
+    <color name="dabai_main_color_lighter_gray_divider">#D7D7D7</color>
+    <color name="dabai_main_color_lighter_gray">#F1F1F1</color>
+    <color name="dabai_main_color_lighter_gray_alpha">#22F1F1F1</color>
+    <color name="dabai_main_color_lighter_red">#F0C0C0</color>
+    <color name="dabai_main_color_lighter_blue">#007CFF</color>
     <!-- -常用颜色值 -->
     <color name="transparent">#00000000</color>
     <!-- 透明 -->
