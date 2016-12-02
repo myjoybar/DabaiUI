@@ -9,8 +9,10 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,10 +21,7 @@ import com.joybar.dabaiui.base.BaseActivity;
 import com.joybar.dabaiui.utis.ScreenUtils;
 import com.joybar.dabaiui.utis.ViewMPWHUtils;
 import com.joybar.dabaiui.view.BubbleLayout;
-import com.joybar.dabaiui.view.CircleProgress;
 import com.joybar.dabaiui.view.WaveBallView;
-
-import java.util.Timer;
 
 /**
  * Created by joybar on 01/12/16.
@@ -36,20 +35,10 @@ public class DialogActivity extends BaseActivity implements SensorEventListener,
     private float waveYPercent = 0.5f;//波浪高度所占背景的百分比；0.0-1.0之间
     private float waveHeightPercent = 0.1f;//波幅所占整个高度的百分比；0.0-0.12之间,最大为0.12，否则会失真
 
-    private Timer timer;
-    private int countPoint;
-    private int timeAmount = 1000;
-    private int gainPoints = 160;
-
-
-    private int bottomText;
-    private int bottomLin;
-
 
     private SensorManager sensorManager;
     private Sensor sensor_orientation;// 方向
-    private TextView tv_lv, tv_lv_points_need, tv_lv_points_gain, tv_click;
-    private CircleProgress circle_progress;
+    private TextView tv_lv, tv_lv_points_need, tv_lv_points_gain;
     private LinearLayout lin_click, layout_tips;
     private BubbleLayout bubbleLayout;
     private WaveBallView waveBallView;
@@ -67,8 +56,7 @@ public class DialogActivity extends BaseActivity implements SensorEventListener,
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_custom_game_points);
-
+        setContentView(R.layout.activity_dialog_custom_game_points);
         initView();
         initData();
         setListener();
@@ -95,7 +83,6 @@ public class DialogActivity extends BaseActivity implements SensorEventListener,
     @Override
     protected void onPause() {
         handler.removeCallbacksAndMessages(null);
-        bubbleLayout.stopAddBubble = true;
         sensorManager.unregisterListener(this, sensor_orientation);
         super.onPause();
     }
@@ -125,12 +112,10 @@ public class DialogActivity extends BaseActivity implements SensorEventListener,
     // 初始化部分————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
     protected void initView() {
-        tv_click = (TextView) findViewById(R.id.tv_click);
         tv_lv = (TextView) findViewById(R.id.tv_lv);
         tv_lv_points_need = (TextView) findViewById(R.id.tv_lv_points_need);
         tv_lv_points_gain = (TextView) findViewById(R.id.tv_lv_points_gain);
 
-        circle_progress = (CircleProgress) findViewById(R.id.circle_progress);
 
         lin_click = (LinearLayout) findViewById(R.id.lin_click);
         layout_tips = (LinearLayout) findViewById(R.id.layout_tips);
@@ -144,23 +129,15 @@ public class DialogActivity extends BaseActivity implements SensorEventListener,
         waveHeightPercent = intent.getFloatExtra(INTENT_EXTRA_HEIGHT_PERCENT, 0.10f);
         waveYPercent = intent.getFloatExtra(INTENT_EXTRA_Y_PERCENT, 0.50f);
 
-        gainPoints = 100;
-        //用于测试
-        if (gainPoints == 0) {
-            gainPoints = 60;
-        }
         tv_lv.setText("LV6");
-
         tv_lv_points_need.setText("升级还需50" + "大白点数");
         tv_lv_points_gain.setText("+" + 80);
 
 
         measureBottom();
         bubbleLayout.setVisibility(View.INVISIBLE);
-
         waveBallView.setWaveYPercent(waveYPercent);
         waveBallView.setWaveHeightPercent(waveHeightPercent);
-
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         sensor_orientation = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
 
@@ -183,25 +160,25 @@ public class DialogActivity extends BaseActivity implements SensorEventListener,
         tv_lv_points_gain.post(new Runnable() {
             @Override
             public void run() {
+                int bottomDis = (ScreenUtils.getScreenHeight(MyApplication.getContext()) - layout_tips.getHeight() - findViewById(R.id.toolbar).getHeight() - ScreenUtils.getStatusHeight(MyApplication.getContext())) / 2;
+                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) waveBallView.getLayoutParams();
+                int waveMarginTop = lp.topMargin;
+                int waveMarginLeft = lp.leftMargin;
 
-                bottomText = tv_lv_points_gain.getBottom();
+                int bubbleLayoutWith = ScreenUtils.getScreenWidth(MyApplication.getContext()) - waveMarginLeft * 2 - waveBallView.getWidth();
+                int bubbleLayoutHeight = ScreenUtils.getScreenHeight(MyApplication.getContext()) - ScreenUtils.getStatusHeight(MyApplication.getContext()) - findViewById(R.id.toolbar).getHeight() - bottomDis - waveBallView.getHeight() / 2 - waveMarginTop;
 
+                int bubbleLayoutMarginTop = waveMarginTop + waveBallView.getHeight() / 2;
+                int bubbleLayoutMarginBottom = bottomDis;
+                int bubbleLayoutMarginLeft = waveMarginLeft + waveBallView.getWidth() / 2;
+                int bubbleLayoutMarginRight = waveMarginLeft + waveBallView.getWidth() / 2;
+
+                Log.d(TAG, "bubbleLayoutMarginLeft=" + bubbleLayoutMarginLeft);
                 ViewMPWHUtils.setHeightWidth(bubbleLayout,
-                        ScreenUtils.getScreenHeight(MyApplication.getContext())
-                                - bottomText - bottomLin + 26,
-                        ScreenUtils.getScreenWidth(MyApplication.getContext()));
-                ViewMPWHUtils.setMargins(bubbleLayout, 0,
-                        ScreenUtils.convertDipOrPx(15), 0, bottomText
-                                + bottomLin);
-                bottomLin = layout_tips.getTop();// 布局的关系，用top
-
-                ViewMPWHUtils.setHeightWidth(bubbleLayout,
-                        ScreenUtils.getScreenHeight(MyApplication.getContext())
-                                - bottomText - bottomLin + 26,
-                        ScreenUtils.getScreenWidth(MyApplication.getContext()));
-                ViewMPWHUtils.setMargins(bubbleLayout, 0,
-                        ScreenUtils.convertDipOrPx(15), 0, bottomText
-                                + bottomLin);
+                        bubbleLayoutHeight,
+                        ScreenUtils.getScreenWidth(mContext) - bubbleLayoutMarginLeft * 2);
+                ViewMPWHUtils.setMargins(bubbleLayout, bubbleLayoutMarginLeft,
+                        bubbleLayoutMarginTop, bubbleLayoutMarginRight, bubbleLayoutMarginBottom);
 
             }
         });
@@ -209,75 +186,46 @@ public class DialogActivity extends BaseActivity implements SensorEventListener,
     }
 
 
-    private Handler handler = new Handler();
+    private static Handler handler = new Handler();
 
-    private Runnable task = new Runnable() {
+
+    Runnable runnable = new Runnable() {
+        @Override
         public void run() {
+            // TODO Auto-generated method stub
 
-            if (countPoint > gainPoints) {
-                // 结束
+            if (waveBallView.getWaveYPercent() > 0.85f) {
                 handler.removeCallbacksAndMessages(null);
                 handler.removeCallbacks(this);
-                bubbleLayout.stopAddBubble = true;
-
-//                // 判断是否升级
-//                if ((Integer.parseInt(gameLoginBean.getCurrent_exp())
-//                        + Integer.parseInt(gameLoginBean.getGain_exp()) + 1 > Integer
-//                        .parseInt(gameLoginBean.getLevel_exp()))) {
-//
-//                    waveHeightProportion = (float) (Integer
-//                            .parseInt(gameLoginBean.getCurrent_exp())
-//                            + Integer.parseInt(gameLoginBean.getGain_exp()) - Integer
-//                            .parseInt(gameLoginBean.getLevel_exp()))
-//                            / Integer.parseInt(gameLoginBean
-//                            .getNext_level_exp());
-//
-//                    MyApplication.setWaveHeightProportion(waveHeightProportion);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString(Constant.GAME_LEVEL,
-//                            gameLoginBean.getLevel());
-//                    openActivity(CouponLevelActivity.class, bundle);
-//
-//                } else {
-//                    waveHeightProportion = (float) (Integer
-//                            .parseInt(gameLoginBean.getCurrent_exp()) + Integer
-//                            .parseInt(gameLoginBean.getGain_exp()))
-//                            / Integer.parseInt(gameLoginBean.getLevel_exp());
-//
-//                    MyApplication.setWaveHeightProportion(waveHeightProportion);
-//                }
-
                 finish();
                 overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-
-                return;
+            } else {
+                waveBallView.setWaveYPercent(waveBallView.getWaveYPercent() + 0.004f);
+                waveBallView.setWaveHeightPercent(waveHeightPercent);
+                waveBallView.postInvalidate();
+                handler.postDelayed(this, 100);
             }
-
-            countPoint++;
-            handler.postDelayed(this, timeAmount / gainPoints);// 设置延迟时间，此处是5秒
 
         }
     };
 
-    // 回调方法部分————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.lin_click:
                 lin_click.setClickable(false);
-                bubbleLayout.bubbles.clear();
                 bubbleLayout.setVisibility(View.VISIBLE);
-                bubbleLayout.postInvalidate();
-
-                new Handler().postDelayed(new Runnable() {
-
+                bubbleLayout.run();
+                bubbleLayout.setFinishListener(new BubbleLayout.FinishListener() {
                     @Override
-                    public void run() {
-                        handler.postDelayed(task, timeAmount / gainPoints);// 设置延迟时间
-
+                    public void bubbleFinish() {
+                        handler.removeCallbacksAndMessages(null);
+                        finish();
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                     }
-                }, 1400);
-
+                });
+                handler.postDelayed(runnable, 3500);
                 break;
 
             default:

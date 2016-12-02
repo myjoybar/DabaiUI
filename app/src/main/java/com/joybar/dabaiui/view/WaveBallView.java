@@ -183,6 +183,9 @@ public class WaveBallView extends View {
         this.orientationOffset = orientationOffset;
     }
 
+    public float getWaveYPercent() {
+        return waveYPercent;
+    }
 
     public void setWaveYPercent(float waveYPercent) {
         if(waveYPercent<0f){

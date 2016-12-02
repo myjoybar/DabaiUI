@@ -37,7 +37,6 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
         initSensor();
         initPosition();
         initListener();
-
         DialogActivity.launch(this,0.10f,0.60f);
 
     }

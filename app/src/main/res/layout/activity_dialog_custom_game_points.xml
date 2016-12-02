@@ -18,7 +18,8 @@
     <FrameLayout
         android:id="@+id/fl_parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#22CCCCCC">
 
         <LinearLayout
             android:id="@+id/layout_tips"
@@ -80,16 +81,6 @@
                     android:textColor="@color/dabai_main_color_white"
                     android:textSize="@dimen/font_huge" />
 
-                <com.joybar.dabaiui.view.CircleProgress
-                    android:id="@+id/circle_progress"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="@dimen/margin_tiny"
-                    android:visibility="gone"
-                    custom:circle_finished_color="@color/dabai_main_color_red"
-                    custom:circle_progress="0"
-                    custom:circle_text_color="@color/dabai_main_color_red"
-                    custom:circle_unfinished_color="@color/dabai_main_color_white" />
             </LinearLayout>
         </LinearLayout>
 
@@ -107,10 +98,15 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/icon_log_dabai_top" />
 
+
         <com.joybar.dabaiui.view.BubbleLayout
             android:id="@+id/bubble_view"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="15dp" />
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom|center_horizontal"
+
+            />
+
+
     </FrameLayout>
 </LinearLayout>
