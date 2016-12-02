@@ -1,11 +1,13 @@
 package com.joybar.dabaiui;
 
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -17,6 +19,7 @@ import com.joybar.dabaiui.view.WaveBallView;
 public class MainActivity extends BaseActivity implements SensorEventListener {
 
     private static String TAG = "MainActivity";
+    private static int REQUEST_BUBBLE_CODE = 10;
     private FrameLayout frameWaveBallView;
     private WaveBallView waveBallView;
     private DrawerLayout drawerLayout;
@@ -37,7 +40,13 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
         initSensor();
         initPosition();
         initListener();
-        DialogActivity.launch(this,0.10f,0.60f);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                DialogActivity.launch(MainActivity.this,0.10f,0.60f,REQUEST_BUBBLE_CODE);
+
+            }
+        },1*1000);
 
     }
     @Override
@@ -61,6 +70,18 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
         // 取消方向传感器的监听
         sensorManager.unregisterListener(this);
         super.onStop();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_BUBBLE_CODE){
+            Bundle b=data.getExtras();
+            float yPercent=b.getFloat(DialogActivity.INTENT_EXTRA_Y_PERCENT);
+            waveBallView.setWaveYPercent(yPercent);
+            waveBallView.setWaveHeightPercent(0.10f);
+            waveBallView.postInvalidate();
+        }
     }
 
     private void initView() {

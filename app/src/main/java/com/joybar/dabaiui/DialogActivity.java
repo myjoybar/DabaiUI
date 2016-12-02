@@ -1,6 +1,6 @@
 package com.joybar.dabaiui;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -30,7 +30,7 @@ public class DialogActivity extends BaseActivity implements SensorEventListener,
 
     private static String TAG = "DialogActivity";
     private static String INTENT_EXTRA_HEIGHT_PERCENT = "heightPercent";
-    private static String INTENT_EXTRA_Y_PERCENT = "yPercent";
+    public static String INTENT_EXTRA_Y_PERCENT = "yPercent";
 
     private float waveYPercent = 0.5f;//波浪高度所占背景的百分比；0.0-1.0之间
     private float waveHeightPercent = 0.1f;//波幅所占整个高度的百分比；0.0-0.12之间,最大为0.12，否则会失真
@@ -44,11 +44,11 @@ public class DialogActivity extends BaseActivity implements SensorEventListener,
     private WaveBallView waveBallView;
 
 
-    public static void launch(Context context, float heightPercent, float yPercent) {
+    public static void launch(Activity context, float heightPercent, float yPercent,int requestCode) {
         Intent intent = new Intent(context, DialogActivity.class);
         intent.putExtra(INTENT_EXTRA_HEIGHT_PERCENT, heightPercent);
         intent.putExtra(INTENT_EXTRA_Y_PERCENT, yPercent);
-        context.startActivity(intent);
+        context.startActivityForResult(intent, requestCode);
     }
 
 
@@ -197,8 +197,7 @@ public class DialogActivity extends BaseActivity implements SensorEventListener,
             if (waveBallView.getWaveYPercent() > 0.85f) {
                 handler.removeCallbacksAndMessages(null);
                 handler.removeCallbacks(this);
-                finish();
-                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                finishSelf();
             } else {
                 waveBallView.setWaveYPercent(waveBallView.getWaveYPercent() + 0.004f);
                 waveBallView.setWaveHeightPercent(waveHeightPercent);
@@ -221,8 +220,7 @@ public class DialogActivity extends BaseActivity implements SensorEventListener,
                     @Override
                     public void bubbleFinish() {
                         handler.removeCallbacksAndMessages(null);
-                        finish();
-                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                        finishSelf();
                     }
                 });
                 handler.postDelayed(runnable, 3500);
@@ -243,6 +241,16 @@ public class DialogActivity extends BaseActivity implements SensorEventListener,
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         waveBallView.setSensorEvent(sensorEvent);
+    }
+
+
+    private void finishSelf(){
+        Intent intent = new Intent();
+        intent.putExtra(INTENT_EXTRA_Y_PERCENT, waveBallView.getWaveYPercent());
+        setResult(RESULT_OK, intent);
+        finish();
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+
     }
 
 }
