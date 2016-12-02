@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -44,7 +43,7 @@ public class DialogActivity extends BaseActivity implements SensorEventListener,
     private WaveBallView waveBallView;
 
 
-    public static void launch(Activity context, float heightPercent, float yPercent,int requestCode) {
+    public static void launch(Activity context, float heightPercent, float yPercent, int requestCode) {
         Intent intent = new Intent(context, DialogActivity.class);
         intent.putExtra(INTENT_EXTRA_HEIGHT_PERCENT, heightPercent);
         intent.putExtra(INTENT_EXTRA_Y_PERCENT, yPercent);
@@ -100,16 +99,9 @@ public class DialogActivity extends BaseActivity implements SensorEventListener,
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            this.finish();
-            // 结束动画
-            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-        }
-        return false;
-    }
+    public void onBackPressed() {
 
-    // 初始化部分————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+    }
 
     protected void initView() {
         tv_lv = (TextView) findViewById(R.id.tv_lv);
@@ -244,7 +236,7 @@ public class DialogActivity extends BaseActivity implements SensorEventListener,
     }
 
 
-    private void finishSelf(){
+    private void finishSelf() {
         Intent intent = new Intent();
         intent.putExtra(INTENT_EXTRA_Y_PERCENT, waveBallView.getWaveYPercent());
         setResult(RESULT_OK, intent);

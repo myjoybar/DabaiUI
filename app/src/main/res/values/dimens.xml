@@ -41,4 +41,6 @@
     <dimen name="margin_chat_msg">15dp</dimen>
 
     <dimen name="height_item">40dp</dimen>
+    <!-- 其他 -->
+    <dimen name="divide_value">1px</dimen>
 </resources>

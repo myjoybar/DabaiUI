@@ -19,7 +19,7 @@ import java.util.Random;
 public class BubbleLayout extends View {
 
     public List<Bubble> bubbles = new ArrayList<Bubble>();
-    private Random random = new Random();// 生成随机数
+    private Random random = new Random();
     private int width, height;
     private boolean start = false;
     private float valueAnimatorTime;
@@ -109,7 +109,7 @@ public class BubbleLayout extends View {
 
     private void createAnimation(Bubble bubble, int i) {
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(0f, 1f);
-        valueAnimator.setDuration(5 * 1000);
+        valueAnimator.setDuration(4 * 1000);
         valueAnimator.setRepeatCount(0);
         valueAnimator.setStartDelay(bubble.getDelays());
         valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator());

@@ -8,15 +8,20 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.joybar.dabaiui.base.BaseActivity;
+import com.joybar.dabaiui.fragment.FragmentMain;
 import com.joybar.dabaiui.view.WaveBallView;
 
-public class MainActivity extends BaseActivity implements SensorEventListener {
+public class MainActivity extends BaseActivity implements SensorEventListener,View.OnClickListener {
 
     private static String TAG = "MainActivity";
     private static int REQUEST_BUBBLE_CODE = 10;
@@ -37,6 +42,7 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        intContent();
         initSensor();
         initPosition();
         initListener();
@@ -90,6 +96,16 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         initToolbar((Toolbar) findViewById(R.id.toolbar), false);
     }
+
+    private void intContent(){
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction tx = fm.beginTransaction();
+        // Fragment fragment = new CalendarViewPagerFragment();
+        Fragment fragment = FragmentMain.newInstance();
+        tx.replace(R.id.fl_content, fragment);
+        tx.commit();
+    }
+
     private void initSensor() {
         // 获取手机传感器管理服务
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -108,7 +124,7 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
     }
 
     private void initListener() {
-
+        frameWaveBallView.setOnClickListener(this);
         drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
@@ -159,6 +175,23 @@ public class MainActivity extends BaseActivity implements SensorEventListener {
         waveBallView.setSensorEvent(sensorEvent);
 
     }
+    public void toggleDrawerMenu() {
+        if (isOpen) {
+            drawerLayout.closeDrawer(Gravity.LEFT);
+        } else {
+            drawerLayout.openDrawer(Gravity.LEFT);
 
+        }
+    }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.frame_wave_ball_view:
+                toggleDrawerMenu();
+                break;
+            default:
+                break;
+        }
+    }
 }

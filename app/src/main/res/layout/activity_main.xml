@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context="com.joybar.dabaiui.MainActivity"
     android:orientation="vertical">
 
@@ -27,12 +28,10 @@
             android:layout_height="match_parent">
 
             <!-- the main content view -->
-            <TextView android:layout_width="match_parent"
-                android:background="#FFFFFF"
-                android:layout_height="match_parent"
-                android:textSize="20sp"
-                android:text="侧滑"
-                />
+            <FrameLayout
+                android:id="@+id/fl_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
 
             <!-- the navigetion view -->

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.joybar.dabaiui.MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/rel_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/ly_chat_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_item"
+            android:layout_alignParentBottom="true"
+            android:background="@color/dabai_main_color_white"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <ImageView
+                android:id="@+id/imv_chat_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/icon_send_empty"
+                 />
+
+            <EditText
+                android:id="@+id/et_chat_msg"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_item"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/imv_chat_send"
+                android:background="@null"
+                android:textColor="@color/dabai_main_color_black"
+                android:textSize="@dimen/font_normal" />
+
+            <LinearLayout
+                android:id="@+id/ll_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imv_chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/spadding_bigger"
+                    android:background="@drawable/icon_hide" />
+
+                <View
+                    android:id="@+id/view_divider"
+                    android:layout_width="@dimen/divide_value"
+                    android:layout_height="@dimen/height_item"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/spadding_big"
+                    android:background="#D2D2D2" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divide_value"
+                android:layout_alignParentBottom="true"
+                android:background="@color/dabai_main_color_light_gray_divide" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_chat"
+            android:background="@color/dabai_main_color_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/ly_chat_bottom"
+            android:layout_marginBottom="@dimen/margin_smallest"/>
+
+        <!--android:id="@+id/rv_content"-->
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_aa"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/dabai_main_color_white"
+        android:visibility="invisible">
+
+        <com.joybar.dabaiui.view.ElasticListView
+            android:id="@+id/listview_aa_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="25dip"
+            android:cacheColorHint="#00000000"
+            android:divider="#D7D7D7"
+            android:dividerHeight="@dimen/divide_value"
+            android:scrollbars="none" />
+
+        <View
+            android:layout_width="@dimen/divide_value"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="25dip"
+            android:background="#D7D7D7"/>
+
+        <com.joybar.dabaiui.view.LetterSortView
+            android:id="@+id/right_letter"
+            android:layout_width="25dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@color/transparent" />
+    </RelativeLayout>
+</RelativeLayout>
+
+
+
+

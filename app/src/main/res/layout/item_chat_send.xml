@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/dabai_main_color_bg"
+    android:clickable="false"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/margin_chat_msg"
+    android:paddingRight="@dimen/margin_chat_msg" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/margin_huger"
+        android:background="@drawable/bg_chat_send"
+        android:orientation="horizontal"
+        android:padding="0dp" >
+
+        <TextView
+            android:id="@+id/chat_send_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:autoLink="phone|web"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/spadding_bigger"
+            android:paddingRight="@dimen/spadding_bigger"
+            android:paddingTop="@dimen/spadding_big"
+            android:paddingBottom="@dimen/spadding_big"
+
+            android:lineSpacingExtra="2dp"
+            android:linksClickable="true"
+            android:minHeight="40dp"
+
+            android:textColor="@color/dabai_main_color_white"
+            android:textSize="@dimen/font_normal" />
+    </LinearLayout>
+
+</RelativeLayout>
