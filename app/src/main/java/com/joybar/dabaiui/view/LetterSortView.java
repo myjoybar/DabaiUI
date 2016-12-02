@@ -19,23 +19,14 @@ import java.util.List;
 public class LetterSortView extends View {
 	// 触摸事件
 	private OnTouchingLetterChangedListener onTouchingLetterChangedListener;
-	// 26个字母
-	// public static String[] b = { "A", "B", "C", "D", "E", "F", "G", "H", "I",
-	// "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
-	// "W", "X", "Y", "Z", "#" };
-
 	public static List<String> list = new ArrayList<String>();
-
 	public static void setListIndex(List<String> mlist) {
 		list = mlist;
 	}
-
 	public static String[] bb = { "A", "B", "#" };
-
 	public static void setIndexLetter(String[] bl) {
 		bb = bl;
 	}
-
 	private int choose = -1;// 选中
 	private Paint paint = new Paint();
 

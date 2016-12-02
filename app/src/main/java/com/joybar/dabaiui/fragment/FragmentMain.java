@@ -29,6 +29,7 @@ import com.joybar.dabaiui.helper.SpaceItemDecoration;
 import com.joybar.dabaiui.utis.ChatListViewAniUtils;
 import com.joybar.dabaiui.utis.ScreenUtils;
 import com.joybar.dabaiui.view.ElasticListView;
+import com.joybar.dabaiui.view.LetterSortView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,16 +40,18 @@ import java.util.List;
 public class FragmentMain extends Fragment implements View.OnClickListener {
 
     private List<ChatMessageBean> mListData = new ArrayList<>();
-    private List<AaIdAllContentBean> listAaContent =new ArrayList<>();
+    private List<AaIdAllContentBean> mListAaContent =new ArrayList<>();
+    List<String> listSortLetter = new ArrayList<String>();
     private MainContentAdapter mAdapter;
-    private  AdapterAaContent adapterAaContent;
-    private RecyclerView recyclerView;
-    private ElasticListView listview_aa_content;
-    private ImageView imv_chat_send;
-    private ImageView imv_chat_AA;
-    private EditText et_chat_msg;
+    private AdapterAaContent mAdapterAaContent;
+    private RecyclerView mRecyclerView;
+    private ElasticListView mListViewAA;
+    private LetterSortView mSortLetter;
+    private ImageView imvChatSend;
+    private ImageView imvChatAATAG;
+    private EditText etChatMsg;
 
-    private InputMethodManager inputManager;// 输入法
+    private InputMethodManager inputManager;
 
     public FragmentMain() {
         // Requires empty public constructor
@@ -82,19 +85,20 @@ public class FragmentMain extends Fragment implements View.OnClickListener {
 
     private void initView(View view) {
 
-        imv_chat_send = (ImageView) view.findViewById(R.id.imv_chat_send);
-        imv_chat_AA = (ImageView) view.findViewById(R.id.imv_chat);
-        et_chat_msg = (EditText) view.findViewById(R.id.et_chat_msg);
-        listview_aa_content = (ElasticListView) view.findViewById(R.id.listview_aa_content);
+        imvChatSend = (ImageView) view.findViewById(R.id.imv_chat_send);
+        imvChatAATAG = (ImageView) view.findViewById(R.id.imv_chat);
+        etChatMsg = (EditText) view.findViewById(R.id.et_chat_msg);
+        mListViewAA = (ElasticListView) view.findViewById(R.id.listview_aa_content);
+        mSortLetter = (LetterSortView) view.findViewById(R.id.right_letter);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.rv_chat);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_chat);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mAdapter = new MainContentAdapter(mListData);
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.addItemDecoration(new SpaceItemDecoration(ScreenUtils.convertDipOrPx(15)));
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addItemDecoration(new SpaceItemDecoration(ScreenUtils.convertDipOrPx(15)));
 
-        adapterAaContent = new AdapterAaContent(getActivity(),listAaContent);
-        listview_aa_content.setAdapter(adapterAaContent);
+        mAdapterAaContent = new AdapterAaContent(getActivity(),mListAaContent);
+        mListViewAA.setAdapter(mAdapterAaContent);
 
     }
 
@@ -116,41 +120,94 @@ public class FragmentMain extends Fragment implements View.OnClickListener {
         mListData.add(chatMessageBean4);
 
 
-        AaIdAllContentBean aaIdAllContentBean1 = new AaIdAllContentBean("我要打滴滴","出行");
-        AaIdAllContentBean aaIdAllContentBean2 = new AaIdAllContentBean("我要打出租车","出行");
+        AaIdAllContentBean aaIdAllContentBean1 = new AaIdAllContentBean("我要叫滴滴","出行");
+        AaIdAllContentBean aaIdAllContentBean2 = new AaIdAllContentBean("我要叫出租车","出行");
 
-        listAaContent.add(aaIdAllContentBean1);
-        listAaContent.add(aaIdAllContentBean2);
+        AaIdAllContentBean aaIdAllContentBean3 = new AaIdAllContentBean("我要吃麦当劳","外卖");
+        AaIdAllContentBean aaIdAllContentBean4 = new AaIdAllContentBean("我要吃肯德基车","外卖");
+        AaIdAllContentBean aaIdAllContentBean5 = new AaIdAllContentBean("我要叫肯德基","外卖");
+
+        AaIdAllContentBean aaIdAllContentBean6 = new AaIdAllContentBean("找个厨师上门","生活");
+        AaIdAllContentBean aaIdAllContentBean7 = new AaIdAllContentBean("找个打扫卫生的阿姨","生活");
+        AaIdAllContentBean aaIdAllContentBean8 = new AaIdAllContentBean("我要预约理发师","生活");
+        AaIdAllContentBean aaIdAllContentBean9 = new AaIdAllContentBean("我要买飞机票","票务");
+        AaIdAllContentBean aaIdAllContentBean10 = new AaIdAllContentBean("我要买电影票","票务");
+
+        AaIdAllContentBean aaIdAllContentBean11 = new AaIdAllContentBean("我想去吃海底捞","美食");
+        AaIdAllContentBean aaIdAllContentBean12 = new AaIdAllContentBean("我想吃广东菜","美食");
+        AaIdAllContentBean aaIdAllContentBean13 = new AaIdAllContentBean("我要吃海鲜","美食");
+
+        mListAaContent.add(aaIdAllContentBean1);
+        mListAaContent.add(aaIdAllContentBean2);
+        mListAaContent.add(aaIdAllContentBean3);
+        mListAaContent.add(aaIdAllContentBean4);
+        mListAaContent.add(aaIdAllContentBean5);
+        mListAaContent.add(aaIdAllContentBean6);
+        mListAaContent.add(aaIdAllContentBean7);
+        mListAaContent.add(aaIdAllContentBean8);
+        mListAaContent.add(aaIdAllContentBean9);
+        mListAaContent.add(aaIdAllContentBean10);
+
+        mListAaContent.add(aaIdAllContentBean11);
+        mListAaContent.add(aaIdAllContentBean12);
+        mListAaContent.add(aaIdAllContentBean13);
+
+        String type1 = "出行";
+        String type2 = "外卖";
+        String type3 = "生活";
+        String type4 = "票务";
+        String type5 = "美食";
+        listSortLetter.add(type1);
+        listSortLetter.add(type2);
+        listSortLetter.add(type3);
+        listSortLetter.add(type4);
+        listSortLetter.add(type5);
+
+        mSortLetter.setListIndex(listSortLetter);
 
 
     }
    boolean isStartAni = false;
     private void setListener() {
-        imv_chat_send.setOnClickListener(this);
-        imv_chat_AA.setOnClickListener(this);
-        listview_aa_content.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        imvChatSend.setOnClickListener(this);
+        imvChatAATAG.setOnClickListener(this);
+        mListViewAA.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                imv_chat_AA.setBackgroundResource(R.drawable.icon_hide);
-                ChatListViewAniUtils.hideAAContent(listAaContent.size(),(RelativeLayout) getActivity().findViewById(R.id.rel_lv), (RelativeLayout)getActivity().findViewById(R.id.rel_aa));
-                ChatMessageBean chatMessageBean = new ChatMessageBean(ChatMessageBean.Type.SEND,listAaContent.get(i).getContent());
+                imvChatAATAG.setBackgroundResource(R.drawable.icon_hide);
+                ChatListViewAniUtils.hideAAContent(mListAaContent.size(),(RelativeLayout) getActivity().findViewById(R.id.rel_lv), (RelativeLayout)getActivity().findViewById(R.id.rel_aa));
+                ChatMessageBean chatMessageBean = new ChatMessageBean(ChatMessageBean.Type.SEND,mListAaContent.get(i).getContent());
                 mListData.add(chatMessageBean);
                 mAdapter.notifyItemRangeInserted(mListData.size()-1, 1);
-                recyclerView.smoothScrollToPosition(mListData.size()-1);
+                mRecyclerView.smoothScrollToPosition(mListData.size()-1);
             }
         });
-        et_chat_msg.setOnClickListener(new View.OnClickListener() {
+        etChatMsg.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 if (getActivity().findViewById(R.id.rel_aa).getVisibility() == View.VISIBLE) {
-                    ChatListViewAniUtils.hideAAContent(listAaContent.size(),(RelativeLayout) getActivity().findViewById(R.id.rel_lv), (RelativeLayout)getActivity().findViewById(R.id.rel_aa));
-                    imv_chat_AA.setBackgroundResource(R.drawable.icon_hide);
+                    ChatListViewAniUtils.hideAAContent(mListAaContent.size(),(RelativeLayout) getActivity().findViewById(R.id.rel_lv), (RelativeLayout)getActivity().findViewById(R.id.rel_aa));
+                    imvChatAATAG.setBackgroundResource(R.drawable.icon_hide);
 
                 }
             }
         });
-        et_chat_msg.addTextChangedListener(new TextWatcher() {
+
+        // 设置右侧触摸监听
+        mSortLetter
+                .setOnTouchingLetterChangedListener(new LetterSortView.OnTouchingLetterChangedListener() {
+
+                    @Override
+                    public void onTouchingLetterChanged(String s) {
+                        int position = mAdapterAaContent.getPositionForSection(s
+                                .charAt(0));
+                        if (position != -1) {
+                            mListViewAA.setSelection(position);
+                        }
+                    }
+                });
+        etChatMsg.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
@@ -166,13 +223,13 @@ public class FragmentMain extends Fragment implements View.OnClickListener {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (et_chat_msg.getText().toString().isEmpty()) {
-                    imv_chat_send.setBackgroundResource(R.drawable.icon_send_empty);
+                if (etChatMsg.getText().toString().isEmpty()) {
+                    imvChatSend.setBackgroundResource(R.drawable.icon_send_empty);
                     isStartAni = false;
                 } else {
                     if (isStartAni == false) {
                         isStartAni = true;
-                        imv_chat_send.setBackgroundResource(R.drawable.icon_send_not_empty);
+                        imvChatSend.setBackgroundResource(R.drawable.icon_send_not_empty);
                         startSenImgAni();
 
                     }
@@ -184,9 +241,9 @@ public class FragmentMain extends Fragment implements View.OnClickListener {
     }
     private void startSenImgAni(){
         ObjectAnimator animatorX = ObjectAnimator.ofFloat(
-                imv_chat_send, "scaleX", 0.3f, 1f);
+                imvChatSend, "scaleX", 0.3f, 1f);
         ObjectAnimator animatorY = ObjectAnimator.ofFloat(
-                imv_chat_send, "scaleY", 0.3f, 1f);
+                imvChatSend, "scaleY", 0.3f, 1f);
         AnimatorSet animSet = new AnimatorSet();
         animSet.play(animatorX).with(animatorY);
         animSet.setDuration(300);
@@ -197,24 +254,24 @@ public class FragmentMain extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.imv_chat_send:
-                if(et_chat_msg.getText().toString().isEmpty()){
-                    Snackbar.make(et_chat_msg, "亲，请说出你的需求哦", Snackbar.LENGTH_LONG).show();
+                if(etChatMsg.getText().toString().isEmpty()){
+                    Snackbar.make(etChatMsg, "亲，请说出你的需求哦", Snackbar.LENGTH_LONG).show();
                 }else{
-                    ChatMessageBean chatMessageBean = new ChatMessageBean(ChatMessageBean.Type.SEND,et_chat_msg.getText().toString());
+                    ChatMessageBean chatMessageBean = new ChatMessageBean(ChatMessageBean.Type.SEND,etChatMsg.getText().toString());
                     mListData.add(chatMessageBean);
                     mAdapter.notifyItemRangeInserted(mListData.size()-1, 1);
-                    recyclerView.smoothScrollToPosition(mListData.size()-1);
-                    et_chat_msg.setText(null);
+                    mRecyclerView.smoothScrollToPosition(mListData.size()-1);
+                    etChatMsg.setText(null);
                     startSenImgAni();
                 }
                 break;
             case R.id.imv_chat:
-                inputManager.hideSoftInputFromWindow(et_chat_msg.getWindowToken(), 0); // 强制隐藏键盘
+                inputManager.hideSoftInputFromWindow(etChatMsg.getWindowToken(), 0);
                 if (getActivity().findViewById(R.id.rel_aa).getVisibility() != View.VISIBLE) {
-                    ChatListViewAniUtils.showAAContent(listAaContent.size(),(RelativeLayout) getActivity().findViewById(R.id.rel_lv), (RelativeLayout)getActivity().findViewById(R.id.rel_aa));
-                    imv_chat_AA.setBackgroundResource(R.drawable.icon_show);
+                    ChatListViewAniUtils.showAAContent(mListAaContent.size(),(RelativeLayout) getActivity().findViewById(R.id.rel_lv), (RelativeLayout)getActivity().findViewById(R.id.rel_aa));
+                    imvChatAATAG.setBackgroundResource(R.drawable.icon_show);
                 }else{
-                    ChatListViewAniUtils.hideAAContent(listAaContent.size(),(RelativeLayout) getActivity().findViewById(R.id.rel_lv), (RelativeLayout)getActivity().findViewById(R.id.rel_aa));
+                    ChatListViewAniUtils.hideAAContent(mListAaContent.size(),(RelativeLayout) getActivity().findViewById(R.id.rel_lv), (RelativeLayout)getActivity().findViewById(R.id.rel_aa));
                 }
                 break;
 
