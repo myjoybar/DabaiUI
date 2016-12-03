@@ -2,7 +2,14 @@
 15年年中做过的一款APP的部分UI,使用了一些还算不错的自定义view以及动画效果，当初很认真的做的一款APP，很遗憾项目停掉了，过去一年多了，现在把业务代码去掉，把部分UI效果放出来，后面有时间会陆续添加
 ## Demo效果GIF
 ![image](https://github.com/myjoybar/DabaiUI/blob/master/screenshots/screenshot.gif) 
-  
+ 
+
+## 截图
+![image](https://github.com/myjoybar/DabaiUI/blob/master/screenshots/Screenshot_1.png)
+![image](https://github.com/myjoybar/DabaiUI/blob/master/screenshots/Screenshot_2.png)   
+![image](https://github.com/myjoybar/DabaiUI/blob/master/screenshots/Screenshot_3.png) 
+![image](https://github.com/myjoybar/DabaiUI/blob/master/screenshots/Screenshot_4.png)    
+![image](https://github.com/myjoybar/DabaiUI/blob/master/screenshots/Screenshot_5.png) 
 ## Features
  - 具有高度逼真波浪效果的视图，可随Android方向传感器360°自动改变效果，可设置水波高度，振幅，频率[AndroidWaveView](https://github.com/myjoybar/AndroidWaveView).
 

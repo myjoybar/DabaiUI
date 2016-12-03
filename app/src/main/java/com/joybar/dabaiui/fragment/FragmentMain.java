@@ -124,7 +124,7 @@ public class FragmentMain extends Fragment implements View.OnClickListener {
         AaIdAllContentBean aaIdAllContentBean2 = new AaIdAllContentBean("我要叫出租车","出行");
 
         AaIdAllContentBean aaIdAllContentBean3 = new AaIdAllContentBean("我要吃麦当劳","外卖");
-        AaIdAllContentBean aaIdAllContentBean4 = new AaIdAllContentBean("我要吃肯德基车","外卖");
+        AaIdAllContentBean aaIdAllContentBean4 = new AaIdAllContentBean("我要吃必胜客","外卖");
         AaIdAllContentBean aaIdAllContentBean5 = new AaIdAllContentBean("我要叫肯德基","外卖");
 
         AaIdAllContentBean aaIdAllContentBean6 = new AaIdAllContentBean("找个厨师上门","生活");
